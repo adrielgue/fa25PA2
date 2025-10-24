@@ -91,7 +91,11 @@ int createLeafNodes(int freq[]) {
 int buildEncodingTree(int nextFree) {
     // TODO:
     // 1. Create a MinHeap object.
+    MinHeap heap;
     // 2. Push all leaf node indices into the heap.
+    for (int i = 0; i < nextFree; ++i) {
+        heap.push(i, weightArr);
+    }
     // 3. While the heap size is greater than 1:
     //    - Pop two smallest nodes
     //    - Create a new parent node with combined weight
@@ -115,6 +119,13 @@ void encodeMessage(const string& filename, string codes[]) {
     for (int i = 0; i < 26; ++i) {
         if (!codes[i].empty())
             cout << char('a' + i) << " : " << codes[i] << "\n";
+    }
+
+    for (int i = 0; i < MAX_NODES; ++i) {
+        if (charArr[i] >= 'a' && charArr[i] <= 'z') {
+            cout << charArr[i] << " : " << weightArr[i] << endl;
+
+        }
     }
 
     cout << "\nEncoded message:\n";
