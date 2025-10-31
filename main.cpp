@@ -96,12 +96,21 @@ int buildEncodingTree(int nextFree) {
     for (int i = 0; i < nextFree; ++i) {
         heap.push(i, weightArr);
     }
+
+    while (heap.size > 1) {
+       int smallNode1 = heap.pop(weightArr);
+        int smallNode2 = heap.pop(weightArr);
+
+
+
+    }
     // 3. While the heap size is greater than 1:
     //    - Pop two smallest nodes
     //    - Create a new parent node with combined weight
     //    - Set left/right pointers
     //    - Push new parent index back into the heap
     // 4. Return the index of the last remaining node (root)
+
     return -1; // placeholder
 }
 
@@ -121,12 +130,12 @@ void encodeMessage(const string& filename, string codes[]) {
             cout << char('a' + i) << " : " << codes[i] << "\n";
     }
 
-    for (int i = 0; i < MAX_NODES; ++i) {
-        if (charArr[i] >= 'a' && charArr[i] <= 'z') {
-            cout << charArr[i] << " : " << weightArr[i] << endl;
+  //  for (int i = 0; i < MAX_NODES; ++i) {
+  //      if (charArr[i] >= 'a' && charArr[i] <= 'z') {
+  //          cout << charArr[i] << " : " << weightArr[i] << endl;
 
-        }
-    }
+ //       }
+
 
     cout << "\nEncoded message:\n";
 
