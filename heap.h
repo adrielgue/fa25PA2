@@ -85,7 +85,7 @@ struct MinHeap {
             data[pos] = data[smallest];
             data[smallest] = temp;
 
-            //move down
+            //continue from childs pos
             pos = smallest;
 
 
