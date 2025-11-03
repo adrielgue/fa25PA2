@@ -36,19 +36,20 @@ struct MinHeap {
         // TODO: remove and return smallest index
         // Replace root with last element, then call downheap()
         if (size == 0) return -1;
-        int root = data[0];
-        size--;
+        int root = data[0];//root equals index 0
+        size--;//reduce heap size
         if (size > 0){
-            data[0] = data[size];
-        }
+            data[0] = data[size];//move last element to the root/top
+            downheap(0, weightArr);//rearrange heap
+            printHeap(weightArr);//print helper function
+    }
         return root;
-        // return -1; // placeholder
     }
 
     void upheap(int pos, int weightArr[]) {
             // TODO: swap child upward while smaller than parent
-            while (pos > 0) {// do stuff until pos==0
-                int parent = (pos - 1) / 2;//finds parent node depending on index
+            while (pos > 0) {// do stuff till root is reached
+                int parent = (pos - 1) / 2;//finds parent node
 
                 if (weightArr[data[pos]] < weightArr[data[parent]]) { //if child weight is less than parent
                     int temp = data[pos];//temp variable to hold child index
@@ -64,7 +65,31 @@ struct MinHeap {
 
     void downheap(int pos, int weightArr[]) {
         // TODO: swap parent downward while larger than any child
+        while (2 * pos + 1 < size) {
+            int leftChild = 2 * pos + 1;//finds left child index
+            int rightChild = 2 * pos + 2;//finds right child index
+            int smallest = leftChild;
 
+            //checks if left child is within the array and if it is smaller than the leftchild
+            if (rightChild < size && weightArr[data[rightChild]] < weightArr[data[leftChild]]) {
+                smallest = rightChild;
+            }
+
+            //if parent is smalller than left and right child stop
+            if (weightArr[data[pos]] <= weightArr[data[smallest]]) {
+                break;
+            }
+
+            //swap parent with smaller child
+            int temp = data[pos];
+            data[pos] = data[smallest];
+            data[smallest] = temp;
+
+            //move down
+            pos = smallest;
+
+
+        }
     }
 };
 
