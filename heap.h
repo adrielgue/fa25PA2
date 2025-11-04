@@ -51,7 +51,8 @@ struct MinHeap {
             while (pos > 0) {// do stuff till root is reached
                 int parent = (pos - 1) / 2;//finds parent node
 
-                if (weightArr[data[pos]] < weightArr[data[parent]]) { //if child weight is less than parent
+                if (weightArr[data[pos]] < weightArr[data[parent]]) {
+                    //if child weight is less than parent
                     int temp = data[pos];//temp variable to hold child index
                     data[pos] = data[parent];// child index is swaped with parent
                     data[parent] = temp;//parent index is now old child index

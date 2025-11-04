@@ -118,7 +118,7 @@ int buildEncodingTree(int nextFree) {
     printf("\n");
 
     int root = heap.pop(weightArr);//remove last node
-    return root;
+    return root;//return it
     // 3. While the heap size is greater than 1:
     //    - Pop two smallest nodes
     //    - Create a new parent node with combined weight
@@ -135,6 +135,29 @@ void generateCodes(int root, string codes[]) {
     // Use stack<pair<int, string>> to simulate DFS traversal.
     // Left edge adds '0', right edge adds '1'.
     // Record code when a leaf node is reached.
+    stack<pair<int, string>> codeStack;
+    codeStack.push({root, ""});//push root into the codestack
+
+    while (!codeStack.empty()) { //while not empty go through all nodes
+        auto [node, path] = codeStack.top();//get top pair
+        codeStack.pop();//remove from stack
+        //get index of lef/right
+        int left = leftArr[node];
+        int right = rightArr[node];
+
+        if (left == -1 && right == -1) {//if left/right has no child assign code
+            char ch = charArr[node];//get character
+            codes[ch - 'a'] = path.empty() ? "0" : path;// store code
+        }
+        else {
+            if (right != -1)//if there is a child, push right child with path + 1
+                codeStack.push({right, path + '1'});
+            if ( left != -1)//if there is a child, push left child with path + 0
+                codeStack.push({left, path + '0'});
+        }
+
+
+    }
 }
 
 // Step 5: Print table and encoded message
