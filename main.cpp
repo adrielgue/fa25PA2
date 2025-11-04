@@ -96,13 +96,29 @@ int buildEncodingTree(int nextFree) {
     for (int i = 0; i < nextFree; ++i) {
         heap.push(i, weightArr);
     }
+    int nextEmptyIdx = nextFree;//tracker of the next free array slot
 
     while (heap.size > 1) {
-       int smallNode1 = heap.pop(weightArr);//smallest node 1
-        int smallNode2 = heap.pop(weightArr);//smallest node 2
-        smallNode1 = weightArr[smallNode1];
+       int smallNode1 = heap.pop(weightArr);//pop 2 of the smallest nodes
+        int smallNode2 = heap.pop(weightArr);
+        int parent = nextEmptyIdx++;//advance to next free slot
 
+        weightArr[parent] = weightArr[smallNode1] + weightArr[smallNode2];//combine weights and add to parent weight
+        leftArr[parent] = smallNode1;
+        rightArr[parent] = smallNode2;
+
+        heap.push(parent, weightArr);//push back to array
     }
+
+    //print everything up to next empty
+    printf("weights\n");
+    for (int i = 0; i < nextEmptyIdx; i++) {
+        printf("%d ", weightArr[i]);
+    }
+    printf("\n");
+
+    int root = heap.pop(weightArr);//remove last node
+    return root;
     // 3. While the heap size is greater than 1:
     //    - Pop two smallest nodes
     //    - Create a new parent node with combined weight
